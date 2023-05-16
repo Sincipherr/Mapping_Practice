@@ -4,10 +4,11 @@ import com.geekster.Mapping.Practice.model.Address;
 import com.geekster.Mapping.Practice.model.Student;
 import com.geekster.Mapping.Practice.service.AddressService;
 import com.geekster.Mapping.Practice.service.StudentService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AddressController {
@@ -19,4 +20,18 @@ public class AddressController {
         as.address(address);
     }
 
+    @GetMapping(value = "/get")
+    public List<Address> getAllAddress(@Nullable @RequestParam Long addressId){
+        return as.getAllAddress(addressId);
+    }
+
+    @DeleteMapping("/delete/{addressId}")
+    public String deleteAddressById(@PathVariable Long addressId){
+        return as.deleteAddressById(addressId);
+    }
+
+    @PutMapping("/update/{addressId}")
+    public String updateAddress(@PathVariable Long addressId , @RequestBody Address address){
+        return as.updateAddress(addressId , address);
+    }
 }
